@@ -4,6 +4,7 @@ package tests;
 import models.AddBooksListModel;
 import models.IsbnModel;
 import models.LoginResponseModel;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 
@@ -45,7 +46,34 @@ public class ProfileBooksListTests extends TestBase {
     }
 
     @Test
-    void deleteBookFromProfileTest() {
+    @DisplayName("Удаление книги из профиля")
 
+    void deleteBookFromProfileTest() {
+        LoginResponseModel loginResponse = authorizationApi.login(credentials);
+        booksApi.deleteAllBooks(loginResponse);
+
+        // Добавляем книгу
+        IsbnModel isbnModel = new IsbnModel();
+        List<IsbnModel> isbnList = new ArrayList<>();
+        isbnList.add(isbnModel);
+
+        AddBooksListModel booksList = new AddBooksListModel(loginResponse.getUserId(), isbnList);
+        booksApi.addBook(loginResponse, booksList);
+
+        // Проверяем, что книга появилась
+        open("/favicon.ico");
+        getWebDriver().manage().addCookie(new Cookie("userID", loginResponse.getUserId()));
+        getWebDriver().manage().addCookie(new Cookie("token", loginResponse.getToken()));
+        getWebDriver().manage().addCookie(new Cookie("expires", loginResponse.getExpires()));
+
+        open("/profile");
+        $("[id='see-book-Git Pocket Guide']").shouldBe(visible);
+
+        // Удаляем книгу
+        booksApi.deleteBook(loginResponse, "9781449325862");
+
+        // Проверяем, что книга исчезла
+        open("/profile");
+        $("[id='see-book-Git Pocket Guide']").shouldNotBe(visible);
     }
 }

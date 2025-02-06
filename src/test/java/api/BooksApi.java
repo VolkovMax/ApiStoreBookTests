@@ -3,7 +3,9 @@ package api;
 
 
 import models.AddBooksListModel;
+import models.DeleteBookModel;
 import models.LoginResponseModel;
+import specs.ApiSpec;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
@@ -29,5 +31,16 @@ public class BooksApi {
                 .post("/BookStore/v1/Books")
                 .then()
                 .statusCode(201);
+    }
+    public void deleteBook(LoginResponseModel loginResponse, String isbn) {
+        DeleteBookModel deleteBook = new DeleteBookModel(loginResponse.getUserId(), isbn);
+
+        given(ApiSpec.baseRequestSpec)
+                .header("Authorization", "Bearer " + loginResponse.getToken())
+                .body(deleteBook)
+                .when()
+                .delete("/BookStore/v1/Book")
+                .then()
+                .spec(ApiSpec.deleteResponseSpec);
     }
 }
