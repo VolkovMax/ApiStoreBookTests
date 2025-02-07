@@ -54,6 +54,7 @@ public class ProfileBooksListTests extends TestBase {
 
         // Добавляем книгу
         IsbnModel isbnModel = new IsbnModel();
+        isbnModel.setIsbn("9781449325862");
         List<IsbnModel> isbnList = new ArrayList<>();
         isbnList.add(isbnModel);
 
