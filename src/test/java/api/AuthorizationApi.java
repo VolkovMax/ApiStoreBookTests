@@ -1,7 +1,5 @@
 package api;
-
-
-
+import specs.ApiSpec;
 import models.CredentialsModel;
 import models.LoginResponseModel;
 
@@ -17,7 +15,7 @@ public class AuthorizationApi {
                 .when()
                 .post("/Account/v1/Login")
                 .then()
-                .statusCode(200)
+                .spec(ApiSpec.successResponseSpec)
                 .extract().as(LoginResponseModel.class);
     }
 }

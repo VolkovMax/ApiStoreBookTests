@@ -1,7 +1,5 @@
 package api;
 
-
-
 import models.AddBooksListModel;
 import models.DeleteBookModel;
 import models.LoginResponseModel;
@@ -19,7 +17,7 @@ public class BooksApi {
                 .when()
                 .delete("/BookStore/v1/Books")
                 .then()
-                .statusCode(204);
+                .spec(ApiSpec.deleteResponseSpec);
     }
 
     public void addBook(LoginResponseModel loginResponse, AddBooksListModel booksList) {
@@ -31,17 +29,19 @@ public class BooksApi {
                 .when()
                 .post("/BookStore/v1/Books")
                 .then()
-                .statusCode(201);
+                .spec(ApiSpec.createdResponseSpec);
     }
     public void deleteBook(LoginResponseModel loginResponse, String isbn) {
         DeleteBookModel deleteBook = new DeleteBookModel(loginResponse.getUserId(), isbn);
 
         given(ApiSpec.baseRequestSpec)
+                .contentType(JSON)
                 .header("Authorization", "Bearer " + loginResponse.getToken())
                 .body(deleteBook)
                 .when()
                 .delete("/BookStore/v1/Book")
                 .then()
+                .log().all()
                 .spec(ApiSpec.deleteResponseSpec);
     }
 }
