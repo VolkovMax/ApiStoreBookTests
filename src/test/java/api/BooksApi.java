@@ -23,6 +23,7 @@ public class BooksApi {
     }
 
     public void addBook(LoginResponseModel loginResponse, AddBooksListModel booksList) {
+
         given()
                 .contentType(JSON)
                 .header("Authorization", "Bearer " + loginResponse.getToken())
