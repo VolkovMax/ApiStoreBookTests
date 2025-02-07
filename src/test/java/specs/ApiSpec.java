@@ -20,17 +20,6 @@ public class ApiSpec {
             .contentType(JSON);
 
 
-    public static ResponseSpecification successResponseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .log(ALL)
-            .build();
-
-
-    public static ResponseSpecification createdResponseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(201)
-            .log(ALL)
-            .build();
-
 
     public static ResponseSpecification deleteResponseSpec = new ResponseSpecBuilder()
             .expectStatusCode(204)
