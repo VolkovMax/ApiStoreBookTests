@@ -5,6 +5,7 @@ import models.AddBooksListModel;
 import models.IsbnModel;
 import models.LoginResponseModel;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import java.util.List;
@@ -15,7 +16,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static tests.TestData.credentials;
 
-
+@Tag("simple")
 public class ProfileBooksListTests extends TestBase {
 
     @Test
