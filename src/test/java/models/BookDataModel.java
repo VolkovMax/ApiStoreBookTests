@@ -2,11 +2,10 @@ package models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class IsbnModel {
-    String isbn;
+public class BookDataModel {
+    private String isbn;
+    private String title;
 }
