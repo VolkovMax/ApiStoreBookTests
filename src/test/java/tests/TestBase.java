@@ -1,11 +1,9 @@
 package tests;
 
-import api.AuthorizationApi;
-import api.BooksApi;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import io.restassured.RestAssured;
 import io.qameta.allure.selenide.AllureSelenide;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -15,8 +13,6 @@ import java.util.Map;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
-    AuthorizationApi authorizationApi = new AuthorizationApi();
-    BooksApi booksApi = new BooksApi();
 
     @BeforeAll
     static void setup() {
@@ -28,9 +24,9 @@ public class TestBase {
         Configuration.browserVersion = System.getProperty("browserVersion", "123.0");
         Configuration.timeout = 10000;
         Configuration.remote = "https://"
-                + System.getProperty("login")
+                + "user1"
                 + ":"
-                + System.getProperty("pass")
+                + "1234"
                 + "@"
                 + System.getProperty("host")
                 + "/wd/hub";
@@ -38,7 +34,8 @@ public class TestBase {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
-                "enableVideo", true ));
+                "enableVideo", true
+        ));
 
         Configuration.browserCapabilities = capabilities;
 
