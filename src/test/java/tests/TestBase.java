@@ -28,7 +28,7 @@ public class TestBase {
                 + ":"
                 + "1234"
                 + "@"
-                + System.getProperty("host")
+                + "selenoid.autotests.cloud"
                 + "/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
