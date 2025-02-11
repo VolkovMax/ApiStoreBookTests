@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'io.qameta.allure' version '2.11.2'
-    id "io.freefair.lombok" version "8.0.1"
+    id "io.freefair.lombok" version "6.0.0-m2"
 }
 
 repositories {
@@ -9,8 +9,7 @@ repositories {
 }
 
 def restAssuredVersion = "5.3.1",
- allureVersion = "2.21.0",
- selenideVersion = "7.5.1"
+    allureVersion = "2.21.0"
 
 allure {
     report {
@@ -27,9 +26,6 @@ allure {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-
     testImplementation(
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
@@ -39,13 +35,13 @@ dependencies {
             "com.codeborne:selenide:6.19.1",
             'org.slf4j:slf4j-simple:2.0.7',
             "org.assertj:assertj-core:3.25.1",
-            'com.github.javafaker:javafaker:1.0.2',
-            "com.codeborne:selenide:$selenideVersion",
-            "org.assertj:assertj-core:3.24.2"
+            'com.github.javafaker:javafaker:1.0.2'
+
     )
 }
 
 tasks.withType(Test) {
+    systemProperties(System.getProperties())
     useJUnitPlatform()
 
     testLogging {
@@ -53,15 +49,5 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
-    }
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs.add("--add-opens=java.base/java.lang=ALL-UNNAMED")
-}
-
-task simple_test(type: Test) {
-    useJUnitPlatform {
-        includeTags("simple")
     }
 }
