@@ -1,5 +1,7 @@
 package tests;
 
+import api.AuthorizationApi;
+import api.BooksApi;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -13,6 +15,9 @@ import java.util.Map;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
+
+    AuthorizationApi authorizationApi = new AuthorizationApi();
+    BooksApi booksApi = new BooksApi();
 
     @BeforeAll
     static void setup() {
