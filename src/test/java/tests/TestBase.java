@@ -29,11 +29,11 @@ public class TestBase {
         Configuration.browserVersion = System.getProperty("browserVersion", "123.0");
         Configuration.timeout = 10000;
         Configuration.remote = "https://"
-                + "user1"
+                + System.getProperty("login")
                 + ":"
-                + "1234"
+                + System.getProperty("pass")
                 + "@"
-                + "selenoid.autotests.cloud"
+                + System.getProperty("host")
                 + "/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
